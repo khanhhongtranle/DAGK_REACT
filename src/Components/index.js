@@ -1,1 +1,1 @@
-export  Boards  from '../Boards/Boards';
+export  Boards  from './Boards/Boards';

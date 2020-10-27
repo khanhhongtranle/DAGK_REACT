@@ -1,48 +1,84 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        minWidth: 275,
     },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
     },
+    title: {
+        fontSize: 14,
+    },
+    pos: {
+        marginBottom: 12,
+    },
+    card: {
+        margin: '10px',
+        minWidth: 275,
+    }
 }));
 
-export default function CenteredGrid() {
+
+function getBoards() {
+    fetch(`http://localhost:8080/api-react/index.php?action=get_boards`,)
+        .then((response) => response.json())
+        .then(boards =>  {
+            console.log(boards);
+        });
+}
+
+export default function Boards() {
     const classes = useStyles();
 
-    //const listBoards = useState({Array()});
+    const [listBoards, setListBoards] = useState([]);
+
+    useEffect( () => {
+        let mounted = true;
+        getBoards()
+            .then(boards => {
+            if (mounted){
+                setListBoards(boards);
+            }
+        })
+        return () => {
+            mounted = false;
+        };
+    }, []);
 
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <Paper className={classes.paper}>xs=12</Paper>
-                </Grid>
-                <Grid item xs={6}>
-                    <Paper className={classes.paper}>xs=6</Paper>
-                </Grid>
-                <Grid item xs={6}>
-                    <Paper className={classes.paper}>xs=6</Paper>
-                </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paper}>xs=3</Paper>
-                </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paper}>xs=3</Paper>
-                </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paper}>xs=3</Paper>
-                </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paper}>xs=3</Paper>
-                </Grid>
+                {listBoards.map(board =>
+                    <Grid item xs={3}>
+                        <Card className={classes.card}>
+                            <CardContent>
+                                <Typography variant="h5" component="h2" color="primary">
+                                    {board['board_name']}
+                                </Typography>
+                                <Typography className={classes.pos} color="textSecondary">
+                                    Date created: {board['date_created']}
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Button variant="outlined" color="primary">
+                                    More
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                )}
             </Grid>
         </div>
     );
