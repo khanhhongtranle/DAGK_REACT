@@ -31,12 +31,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function getBoards() {
-    fetch(`http://localhost:8080/api-react/index.php?action=get_boards`,)
-        .then((response) => response.json())
-        .then(boards =>  {
-            console.log(boards);
-        });
+export function getBoards() {
+    return fetch(`http://localhost:8080/api-react/index.php?action=get_boards`,)
+        .then((response) => response.json());
 }
 
 export default function Boards() {
