@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export function getBoards() {
-    return fetch(`http://localhost:8080/api-react/index.php?action=get_boards`,)
+    return fetch(`http://52.77.203.212/api-react/index.php?action=get_boards`,)
         .then((response) => response.json());
 }
 
