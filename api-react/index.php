@@ -93,7 +93,7 @@ if ($_GET['action']=='login'){
                 "time_login"=>time()
             );
 
-            $token = JWT::encode($payload,$privateKey,'HS256');
+            $token = JWT::encode($payload,$privateKey,'RS256');
 
             $data  = array(
                 'success'=>1,
