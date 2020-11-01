@@ -40,6 +40,7 @@ $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 $data = $_GET['action'];
 $headers = getallheaders();
 $auth_token = empty($headers['Authorization'])?$headers['Authorization']:null;
+die($auth_token);
 if ($auth_token!= null){
     $decoded = JWT::decode($auth_token,$publicKey,array('RS256'));
     $decoded_array = (array) $decoded;
