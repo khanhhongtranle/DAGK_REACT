@@ -27,7 +27,9 @@ if ($_GET['action']=='get_users'){
  * post user
  */
 if ($_GET['action']=='post_user'){
-    $data=$_GET;
+    $pass = md5(base64_decode($_GET['password']));
+    $db->query("insert into users(username,hash_pass, email, first_name, last_name) 
+                        values ('{$_GET['username']}','{$pass}','{$_GET['email']}','{$_GET['first_name']}', '{$_GET['last_name']}') ");
 }
 
 
