@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import Boards from "../Components/Boards/Boards";
+import Login from "../Components/Login/Login";
+import SignUpForm from "Components/SignUp/SignUpForm";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +34,7 @@ function App() {
                   </Toolbar>
               </AppBar>
           </div>
-          <Boards />
+          <SignUpForm />
       </div>
   );
 }

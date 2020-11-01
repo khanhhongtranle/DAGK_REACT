@@ -14,9 +14,15 @@ $data = $_GET['action'];
  */
 if($_GET['action']=='get_boards'){
     $data = $db->query("select * from boards")->fetchAll();
-}elseif($_GET['action']=='test'){
-    $data = 'test';
 }
+
+/**
+ * get users
+ */
+if ($_GET['action']=='get_users'){
+    $data = $db->query("select * from users")->fetchAll();
+}
+
 
 ob_clean();
 echo json_encode($data);
