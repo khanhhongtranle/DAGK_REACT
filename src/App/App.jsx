@@ -8,6 +8,10 @@ import Button from '@material-ui/core/Button';
 import Boards from "../Components/Boards/Boards";
 import Login from "../Components/Login/Login";
 import SignUpForm from "Components/SignUp/SignUpForm";
+import {BrowserRouter as Router,
+        Switch,
+        Route,
+        Link} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
     const classes = useStyles();
   return (
+      <Router>
       <div>
           <div className={classes.root}>
               <AppBar position="static">
@@ -34,8 +39,21 @@ function App() {
                   </Toolbar>
               </AppBar>
           </div>
-          <Login />
+              <div>
+                  <Switch>
+                      <Route path="/login">
+                          <Login />
+                      </Route>
+                      <Route path="/signup">
+                          <SignUpForm />
+                      </Route>
+                      <Route path="/boards">
+                          <Boards />
+                      </Route>
+                  </Switch>
+              </div>
       </div>
+      </Router>
   );
 }
 

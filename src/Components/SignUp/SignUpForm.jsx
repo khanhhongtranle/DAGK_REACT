@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {get_users, post_user} from "../../Utils/dbUtils";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -38,6 +39,10 @@ function SignUpForm() {
     const [lastName, setLastName] = useState('');
 
     const submitSignUpHandler = e => {
+        if (username === '' || password === '' || rePassword === '' || email === ''){
+            return;
+        }
+
         get_users().then(users => {
             let existedUsers = [];
             existedUsers = users;
@@ -91,6 +96,7 @@ function SignUpForm() {
                                 <Button type="button" onClick={submitSignUpHandler} variant="contained" color="primary">
                                     Submit
                                 </Button>
+                                <Link to="/login">Back to login</Link>
                             </CardActions>
                         </form>
                     </Card>

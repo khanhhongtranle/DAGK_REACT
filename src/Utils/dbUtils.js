@@ -23,3 +23,4 @@ export function login(data){
         +'&password='+data.password)
         .then(response => response.json());
 }
+

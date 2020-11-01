@@ -6,7 +6,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {get_users, login} from "../../Utils/dbUtils";
+import {checkLogin, login} from "../../Utils/dbUtils";
+import {Link} from "react-router-dom";
+import {Cookies} from "react-cookie";
+
+const cookie = new Cookies();
 
 const useStyles = makeStyles({
     root: {
@@ -34,13 +38,25 @@ function Login() {
     const [password, setPassword] = useState('');
 
     function loginHandler() {
-       login({username: username, password: password})
+        if (username === '' || password === ''){
+            return;
+        }
+       login({username: username, password: window.btoa(password)})
            .then(res => {
                console.log(res);
+
+              if (res.hasOwnProperty('error')){
+                  window.location.href = '/login';
+                  return ;
+              }
+
               if (res['success'] === 1){
                   alert('login successful');
+
+                  cookie.set('react-token',res['token']);
+                  console.log(cookie);
               }
-              else{
+              else if ( res['success'] === 0 ){
                   alert('login failed');
               }
            });
@@ -65,7 +81,7 @@ function Login() {
                                     Login
                                 </Button>
                                 <Button variant="contained">
-                                    Sign up
+                                    <Link style={{textDecoration: "none", color: "black"}} to="/signup">Sign up</Link>
                                 </Button>
                             </CardActions>
                         </Card>

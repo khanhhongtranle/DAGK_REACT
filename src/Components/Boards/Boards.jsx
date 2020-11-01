@@ -6,7 +6,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {Cookies} from "react-cookie";
 
+const cookie = new Cookies();
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,7 +34,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 export function getBoards() {
-    return fetch(`http://52.77.203.212/api-react/index.php?action=get_boards`,)
+    return fetch(`http://52.77.203.212/api-react/index.php?action=get_boards`,{
+        headers: new Headers({
+            'Authorization':cookie.get('react-token')
+        })
+    })
         .then((response) => response.json());
 }
 
@@ -45,6 +51,7 @@ export default function Boards() {
         let mounted = true;
         getBoards()
             .then(boards => {
+
             if (mounted){
                 setListBoards(boards);
             }
