@@ -38,9 +38,9 @@ $dbname = 'sprint_retrospective';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 $data = $_GET['action'];
-$headers = getallheaders();
+//$headers = getallheaders();
 
-$auth_token = empty($headers['Authorization'])?$headers['Authorization']:null;
+$auth_token = empty($_GET['token'])?$_GET['token']:null;
 if ($auth_token!= null){
     $decoded = JWT::decode($auth_token,$publicKey,array('RS256'));
     $decoded_array = (array) $decoded;
