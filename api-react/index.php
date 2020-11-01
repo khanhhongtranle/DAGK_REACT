@@ -38,7 +38,22 @@ $dbname = 'sprint_retrospective';
 
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 $data = $_GET['action'];
+$headers = getallheaders();
 
+$auth_token = empty($headers['Authorization'])?$headers['Authorization']:null;
+if ($auth_token!= null){
+    $decoded = JWT::decode($auth_token,$publicKey,array('RS256'));
+    $decoded_array = (array) $decoded;
+    if (empty($decoded_array['key']) || $decoded_array['key']=='react' || time() - $decoded_array['time_login'] > $decoded_array['time'] ){
+        ob_clean();
+        echo json_encode(array('error'=>'need_login'));
+        exit;
+    }
+} elseif ($_GET['action']!= 'login' && $_GET['action']!='post_user'){
+    ob_clean();
+    echo json_encode(array('error'=>'need_login'));
+    exit;
+}
 
 /**
  * get boards
