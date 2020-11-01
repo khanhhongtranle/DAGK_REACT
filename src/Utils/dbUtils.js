@@ -1,6 +1,6 @@
 export function get_users() {
     return fetch(`http://52.77.203.212/api-react/index.php?action=get_users`,)
-        .then((response) => response.json());
+        .then((response) => {response.json(); console.log(response)});
 }
 
 export function post_user(data) {
