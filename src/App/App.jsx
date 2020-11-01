@@ -12,6 +12,7 @@ import {BrowserRouter as Router,
         Switch,
         Route,
         Link} from "react-router-dom";
+import {BoardDetail} from "Components/BoardDetail/BoardDetail";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +50,9 @@ function App() {
                       </Route>
                       <Route path="/boards">
                           <Boards />
+                      </Route>
+                      <Route path="/detail">
+                          <BoardDetail />
                       </Route>
                   </Switch>
               </div>

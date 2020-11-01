@@ -24,3 +24,9 @@ export function login(data){
         .then(response => response.json());
 }
 
+export function getBoardDetail(boardId){
+    return fetch('http://52.77.203.212/api-react/index.php?action=get_boarddetail' +
+        '&id='+boardId)
+        .then(response => response.json());
+}
+

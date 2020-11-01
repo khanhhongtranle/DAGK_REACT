@@ -108,6 +108,13 @@ if ($_GET['action']=='login'){
     }
 }
 
+/**
+ * get board detail
+ */
+if ($_GET['action'] == 'get_boarddetail'){
+    $data = $db->query("select * from board_detail where board_id = '{$_GET['id']}'")->fetchAll();
+}
+
 ob_clean();
 echo json_encode($data);
 exit;
