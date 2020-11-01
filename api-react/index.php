@@ -37,7 +37,7 @@ if ($_GET['action']=='post_user'){
  */
 if ($_GET['action']=='login'){
     $pass = md5(base64_decode($_GET['password']));
-    $user = $db->query("select * from users where username =  " + $_GET['username'])->fetchAll();
+    $user = $db->query("select * from users where username = '{$_GET['username']}'")->fetchAll();
     if (count($user) > 0){
         if ($pass == $user[0]['hash_pass']){
             $data  = array('success'=>1);

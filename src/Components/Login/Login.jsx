@@ -36,6 +36,7 @@ function Login() {
     function loginHandler() {
        login({username: username, password: password})
            .then(res => {
+               console.log(res);
               if (res['success'] === 1){
                   alert('login successful');
               }
@@ -50,23 +51,25 @@ function Login() {
             <Grid container spacing={3}>
                 <Grid item xs/>
                 <Grid item xs>
-                    <Card className={classes.root}>
-                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            Login
-                        </Typography>
-                        <CardContent>
-                            <input type="text" placeholder="Username" required value={username} onChange={e => setUsername(e.target.value)} />
-                            <input type="password" placeholder="Password" required value={password} onChange={e => setPassword(e.target.value)}/>
-                        </CardContent>
-                        <CardActions>
-                            <Button variant="contained" color="primary" onClick={loginHandler}>
+                    <form>
+                        <Card className={classes.root}>
+                            <Typography className={classes.title} color="textSecondary" gutterBottom>
                                 Login
-                            </Button>
-                            <Button variant="contained">
-                                Sign up
-                            </Button>
-                        </CardActions>
-                    </Card>
+                            </Typography>
+                            <CardContent>
+                                <input type="text" placeholder="Username" required value={username} onChange={e => setUsername(e.target.value)} />
+                                <input type="password" placeholder="Password" required value={password} onChange={e => setPassword(e.target.value)}/>
+                            </CardContent>
+                            <CardActions>
+                                <Button type="button" variant="contained" color="primary" onClick={loginHandler}>
+                                    Login
+                                </Button>
+                                <Button variant="contained">
+                                    Sign up
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    </form>
                 </Grid>
                 <Grid item xs/>
             </Grid>

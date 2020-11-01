@@ -18,7 +18,7 @@ export function post_user(data) {
 }
 
 export function login(data){
-    return fetch('http://52.77.203.212/api-react/index.php?action=post_user' +
+    return fetch('http://52.77.203.212/api-react/index.php?action=login' +
         '&username='+data.username
         +'&password='+data.password)
         .then(response => response.json());
