@@ -23,6 +23,13 @@ if ($_GET['action']=='get_users'){
     $data = $db->query("select * from users")->fetchAll();
 }
 
+/**
+ * post user
+ */
+if ($_GET['action']=='post_user'){
+    $data=$_POST;
+}
+
 
 ob_clean();
 echo json_encode($data);

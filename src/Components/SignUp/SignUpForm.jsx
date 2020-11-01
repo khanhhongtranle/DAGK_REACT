@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {get_users} from "../../Utils/dbUtils";
+import {get_users, post_user} from "../../Utils/dbUtils";
 
 const useStyles = makeStyles({
     root: {
@@ -38,15 +38,35 @@ function SignUpForm() {
     const [lastName, setLastName] = useState('');
 
     const submitSignUpHandler = e => {
-        //check username
-        const users = get_users();
-        console.log(users);
+        get_users().then(users => {
+            let existedUsers = [];
+            existedUsers = users;
 
-        //check password
+            //check username
+            for (let user of existedUsers){
+                if (username===user['username']){
+                    alert('This username is exists');
+                    return;
+                }
+            }
 
-        //check email ?
+            //check password
+            if (password !== rePassword){
+                alert('Password does not match');
+                return;
+            }
 
-        //save to db
+            //save to db
+            let encodedPassword = window.btoa(password);
+            let data = {
+                username: username,
+                password: encodedPassword,
+                email: email,
+                last_name: lastName,
+                first_name: firstName
+            }
+            post_user(data).then(res => console.log(res));
+        });
     }
 
     return (
@@ -58,17 +78,17 @@ function SignUpForm() {
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
                             Sign up
                         </Typography>
-                        <form onSubmit={submitSignUpHandler}>
+                        <form>
                             <CardContent>
                                 <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} required/>
                                 <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required/>
                                 <input type="password" placeholder="Password Again" value={rePassword} onChange={e => setRePassword(e.target.value)} required/>
                                 <input type="text" placeholder="Email Address" value={email} onChange={e => setEmail(e.target.value)} required/>
-                                <input type="text" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)} required/>
-                                <input type="text" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)} required/>
+                                <input type="text" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)}/>
+                                <input type="text" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}/>
                             </CardContent>
                             <CardActions>
-                                <Button type="submit" variant="contained" color="primary">
+                                <Button type="button" onClick={submitSignUpHandler} variant="contained" color="primary">
                                     Submit
                                 </Button>
                             </CardActions>
