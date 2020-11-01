@@ -34,7 +34,7 @@ function App() {
                   </Toolbar>
               </AppBar>
           </div>
-          <SignUpForm />
+          <Login />
       </div>
   );
 }

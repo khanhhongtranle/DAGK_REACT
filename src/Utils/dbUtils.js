@@ -9,6 +9,17 @@ export function post_user(data) {
     //     headers: { 'Content-Type': 'application/json' },
     //     body: JSON.stringify({ data })
     // };
-    return fetch('http://52.77.203.212/api-react/index.php?action=post_user&username='+data['username'])
+    return fetch('http://52.77.203.212/api-react/index.php?action=post_user&username='+data['username']
+        +'&password='+data.password
+        +'&email='+data.email
+        +'&first_name='+data.first_name
+        +'&last_name='+data.last_name)
+        .then(response => response.json());
+}
+
+export function login(data){
+    return fetch('http://52.77.203.212/api-react/index.php?action=post_user' +
+        '&username='+data.username
+        +'&password='+data.password)
         .then(response => response.json());
 }
