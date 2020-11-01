@@ -45,17 +45,17 @@ function Login() {
            .then(res => {
                console.log(res);
 
-              if (res.hasOwnProperty('error')){
-                  window.location.href = '/login';
-                  return ;
-              }
+              // if (res.hasOwnProperty('error')){
+              //     window.location.href = '/login';
+              //     return ;
+              // }
 
               if (res['success'] === 1){
                   alert('login successful');
 
-                  cookie.set('react-token',res['token']);
+                  //cookie.set('react-token',res['token']);
 
-                  window.location.href = '/boards';
+                  //window.location.href = '/boards';
 
               }
               else if ( res['success'] === 0 ){

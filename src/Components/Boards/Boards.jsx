@@ -35,13 +35,9 @@ const useStyles = makeStyles((theme) => ({
 
 export function getBoards() {
 
-    console.log()
-    return fetch(`http://52.77.203.212/api-react/index.php?action=get_boards`,{
-        headers: new Headers({
-            'Authorization':cookie.get('react-token')
-        })
-    })
-        .then((response) => {response.json(); console.log(response)});
+    console.log(cookie.get('react-token'));
+    return fetch(`http://52.77.203.212/api-react/index.php?action=get_boards`)
+        .then((response) => response.json());
 }
 
 export default function Boards() {
@@ -53,7 +49,7 @@ export default function Boards() {
         let mounted = true;
         getBoards()
             .then(boards => {
-
+                console.log(boards);
             if (mounted){
                 setListBoards(boards);
             }
