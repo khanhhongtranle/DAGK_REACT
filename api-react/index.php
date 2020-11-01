@@ -27,7 +27,7 @@ if ($_GET['action']=='get_users'){
  * post user
  */
 if ($_GET['action']=='post_user'){
-    $data=$_REQUEST;
+    $data=$_GET;
 }
 
 
