@@ -54,7 +54,9 @@ function Login() {
                   alert('login successful');
 
                   cookie.set('react-token',res['token']);
-                  console.log(cookie);
+
+                  window.location.href = '/boards';
+
               }
               else if ( res['success'] === 0 ){
                   alert('login failed');

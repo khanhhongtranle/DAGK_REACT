@@ -34,12 +34,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 export function getBoards() {
+
+    console.log()
     return fetch(`http://52.77.203.212/api-react/index.php?action=get_boards`,{
         headers: new Headers({
             'Authorization':cookie.get('react-token')
         })
     })
-        .then((response) => response.json());
+        .then((response) => {response.json(); console.log(response)});
 }
 
 export default function Boards() {
